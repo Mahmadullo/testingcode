@@ -4,13 +4,13 @@
 	include_once 'database.php';
 	
 	if (!isset($_SESSION['user_id'])) {
-		header('Location: page_login.php'); // Перенаправление на страницу входа
+		header('Location: users.php'); // Перенаправление на страницу входа
 		exit();
 	}
 	//Get Users from Database
 	$users = getUsers(connectToDatabase(), 'users');
 	//
-	
+
 ?>
 
 <!DOCTYPE html>
