@@ -3,18 +3,10 @@
 	include_once 'functions.php';
 	include_once 'database.php';
 	
-	//	Checking is Logged on System
 	
-	if (is_not_logged()) {
-		header('Location: page_login.php');
-		exit();
-	}
-	
-	//Get Users from Database check.loc
+	//Get Users from Database
 	$users = getUsers(connectToDatabase(), 'users');
-	//Get Email Users DB_users
-	$usersData = getUsers(connectToDatabaseUsers(), 'users');
-
+	//
 
 ?>
 
@@ -69,8 +61,7 @@
     </div>
     <div class="row">
         <div class="col-xl-12">
-					<?php var_dump($_SESSION['user_data']); ?>
-					<?php if (isAdmin(get_authenticatedUser())): ?>
+					<?php if ($users['is_admin']): ?>
               <a class="btn btn-success" href="create_user.html">Добавить</a>
 					<?php endif; ?>
             <div class="border-faded bg-faded p-3 mb-g d-flex mt-3">
@@ -96,23 +87,19 @@
               <div id="c_1" class="card border shadow-0 mb-g shadow-sm-hover" data-filter-tags="oliver kopyov">
                   <div class="card-body border-faded border-top-0 border-left-0 border-right-0 rounded-top">
                       <div class="d-flex flex-row align-items-center">
-              <span class="status status-success mr-3">
+                                <span class="status status-success mr-3">
                                     <span class="rounded-circle profile-image d-block "
-                                          style="background-image:url('<?php echo $user['image']; ?>'); background-size: cover;"></span>
+                                          style="background-image:url('img/demo/avatars/avatar-b.png'); background-size: cover;"></span>
                                 </span>
                           <div class="info-card-text flex-1">
                               <a href="javascript:void(0);" class="fs-xl text-truncate text-truncate-lg text-info"
                                  data-toggle="dropdown" aria-expanded="false">
-																<?php echo $user['username']; ?>
-																<?php if (isAdmin(get_authenticatedUser()) || compareUserIds($user, get_authenticatedUser())) : ?>
+                                  Oliver Kopyov
                                   <i class="fal fas fa-cog fa-fw d-inline-block ml-1 fs-md"></i>
                                   <i class="fal fa-angle-down d-inline-block ml-1 fs-md"></i>
                               </a>
-														<?php endif; ?>
-														<?php if (isAdmin(get_authenticatedUser()) || compareUserIds($user, get_authenticatedUser())) : ?>
-
+														<?php if ($user['is_admin']): ?>
                                 <div class="dropdown-menu">
-
                                     <a class="dropdown-item" href="edit.html">
                                         <i class="fa fa-edit"></i>
                                         Редактировать</a>
@@ -126,14 +113,13 @@
                                         <i class="fa fa-camera"></i>
                                         Загрузить аватар
                                     </a>
-                                    <a href="#" class="dropdown-item"
-                                       onclick="return confirm('are you sure ?');">
+                                    <a href="#" class="dropdown-item" onclick="return confirm('are you sure?');">
                                         <i class="fa fa-window-close"></i>
                                         Удалить
                                     </a>
                                 </div>
 														<?php endif; ?>
-                              <span class="text-truncate text-truncate-xl"><?php echo $user['job_title']; ?></span>
+                              <span class="text-truncate text-truncate-xl">IT Director, Gotbootstrap Inc.</span>
                           </div>
                           <button class="js-expand-btn btn btn-sm btn-default d-none" data-toggle="collapse"
                                   data-target="#c_1 > .card-body + .card-body" aria-expanded="false">
@@ -145,13 +131,13 @@
                   <div class="card-body p-0 collapse show">
                       <div class="p-3">
                           <a href="tel:+13174562564" class="mt-1 d-block fs-sm fw-400 text-dark">
-                              <i class="fas fa-mobile-alt text-muted mr-2"></i> <?php echo $user['phone']; ?></a>
+                              <i class="fas fa-mobile-alt text-muted mr-2"></i> +1 317-456-2564</a>
                           <a href="mailto:oliver.kopyov@smartadminwebapp.com"
                              class="mt-1 d-block fs-sm fw-400 text-dark">
                               <i class="fas fa-mouse-pointer text-muted mr-2"></i>
                               oliver.kopyov@smartadminwebapp.com</a>
                           <address class="fs-sm fw-400 mt-4 text-muted">
-                              <i class="fas fa-map-pin mr-2"></i><?php echo $user['address']; ?>
+                              <i class="fas fa-map-pin mr-2"></i> 15 Charist St, Detroit, MI, 48212, USA
                           </address>
                           <div class="d-flex flex-row">
                               <a href="javascript:void(0);" class="mr-2 fs-xxl" style="color:#4680C2">
@@ -167,6 +153,7 @@
                       </div>
                   </div>
               </div>
+
           </div>
 			<?php endforeach; ?>
     </div>
@@ -213,5 +200,6 @@
         //initialize filter
         initApp.listFilter($('#js-contacts'), $('#js-filter-contacts'));
     });
+
 </script>
 </html>
