@@ -9,6 +9,7 @@
 		
 		// Создаем соединение с базой данных
 		$conn = connectToDatabase();
+		// Проверка в базе данный
 		$user = getUserDataByEmail($conn, $email);
 		
 		if ($user) {
