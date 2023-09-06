@@ -3,10 +3,7 @@
 	include_once 'functions.php';
 	include_once 'database.php';
 	
-	if (!isset($_SESSION['user_id'])) {
-		header('Location: users.php'); // Перенаправление на страницу входа
-		exit();
-	}
+	
 	//Get Users from Database
 	$users = getUsers(connectToDatabase(), 'users');
 	//
