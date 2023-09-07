@@ -3,10 +3,10 @@
 	include_once 'functions.php';
 	include_once 'database.php';
 	
-	
 	//Get Users from Database
 	$users = getUsers(connectToDatabase(), 'users');
-	//
+	//	var_dump($users[0]['role']);
+	var_dump($_SESSION);
 
 ?>
 
@@ -61,8 +61,8 @@
     </div>
     <div class="row">
         <div class="col-xl-12">
-					<?php if ($users['is_admin']): ?>
-              <a class="btn btn-success" href="create_user.html">Добавить</a>
+					<?php if (isAdmin(get_authenticatedUser())): ?>
+              <a class="btn btn-success" href="create_user.html">Добавить</a>;
 					<?php endif; ?>
             <div class="border-faded bg-faded p-3 mb-g d-flex mt-3">
                 <input type="text" id="js-filter-contacts" name="filter-contacts"
@@ -98,8 +98,9 @@
                                   <i class="fal fas fa-cog fa-fw d-inline-block ml-1 fs-md"></i>
                                   <i class="fal fa-angle-down d-inline-block ml-1 fs-md"></i>
                               </a>
-														<?php if ($user['is_admin']): ?>
+														<?php if (isAdmin('admin')) : ?>
                                 <div class="dropdown-menu">
+
                                     <a class="dropdown-item" href="edit.html">
                                         <i class="fa fa-edit"></i>
                                         Редактировать</a>
@@ -113,7 +114,7 @@
                                         <i class="fa fa-camera"></i>
                                         Загрузить аватар
                                     </a>
-                                    <a href="#" class="dropdown-item" onclick="return confirm('are you sure?');">
+                                    <a href="#" class="dropdown-item" onclick="return confirm('are you sure ?');">
                                         <i class="fa fa-window-close"></i>
                                         Удалить
                                     </a>
