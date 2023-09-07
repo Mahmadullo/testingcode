@@ -40,9 +40,8 @@
 	
 	function isAdmin($user)
 	{
-		if (is_logged_in()) {
-			if ($user['role'] === 'admin')
-				return;
+		if (is_logged_in() && isset($user['role']) && $user['role'] === 'admin') {
+			return true;
 		}
 		return false;
 	}
@@ -62,8 +61,8 @@
 	
 	function get_authenticatedUser()
 	{
-		if (is_logged_in()) {
-			return $_SESSION['username'];
+		if (is_logged_in() && isset($_SESSION['user_data'])) {
+			return $_SESSION['user_data'];
 		}
 		return false;
 	}
