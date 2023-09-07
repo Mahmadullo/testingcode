@@ -32,3 +32,38 @@
 		$stmt->execute();
 		return $stmt->fetch(PDO::FETCH_ASSOC);
 	}
+	
+	function isUser($role): bool
+	{
+		return $role === 'user';
+	}
+	
+	function isAdmin($user)
+	{
+		if (is_logged_in()) {
+			if ($user['role'] === 'admin')
+				return;
+		}
+		return false;
+	}
+	
+	function is_logged_in()
+	{
+		if (isset($_SESSION['username'])) {
+			return true;
+		}
+		return false;
+	}
+	
+	function is_not_logged()
+	{
+		return !is_logged_in();
+	}
+	
+	function get_authenticatedUser()
+	{
+		if (is_logged_in()) {
+			return $_SESSION['username'];
+		}
+		return false;
+	}
