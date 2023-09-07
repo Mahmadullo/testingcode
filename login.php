@@ -20,6 +20,9 @@
 		if ($userData && password_verify($inputPasswordUser, $userData['password'])) {
 			// Успешная аутентификация, перенаправляем на страницу пользователей
 			header('Location: users.php');
+			$_SESSION['user_id'] = $userData['id'];
+			$_SESSION['username'] = $userData;
+			$_SESSION['user_role'] = $userData['role'];
 		} else {
 			// Неверные учетные данные, устанавливаем сообщение об ошибке и перенаправляем на страницу входа
 			$_SESSION['flash_message'] = 'Неверный email или пароль';
