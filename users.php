@@ -11,9 +11,9 @@
 	}
 	
 	//Get Users from Database check.loc
-	$users = getUsers(connectToDatabase(), 'users');
+	//	$users = getUsers(connectToDatabase(), 'users');
 	//Get Email Users DB_users
-	$usersData = getUsers(connectToDatabaseUsers(), 'users');
+	$users = getUsers(connectToDatabaseUsers(), 'users');
 
 
 ?>
@@ -110,7 +110,6 @@
                               </a>
 														<?php endif; ?>
 														<?php if (isAdmin(get_authenticatedUser()) || compareUserIds($user, get_authenticatedUser())) : ?>
-
                                 <div class="dropdown-menu">
 
                                     <a class="dropdown-item" href="edit.html">
@@ -168,7 +167,9 @@
                   </div>
               </div>
           </div>
+			
 			<?php endforeach; ?>
+			<?php session_destroy(); ?>
     </div>
 
 </main>
