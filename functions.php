@@ -28,9 +28,23 @@
 	
 	function addUser($conn, $table, $user)
 	{
-		$stmt = $conn->prepare("INSERT INTO `users`(`email`) VALUES ('ss')");
-		$stmt->execute();
-		return $stmt->fetch(PDO::FETCH_ASSOC);
+		// Prepare the SQL statement
+		$stmt = $conn->prepare("INSERT INTO `$table`(`username`, `job_title`, `status`, `image`, `phone`, `address`, `email`, `vk`, `telegram`, `instagram`) VALUES (:username, :job_title, :status, :image, :phone, :address, :email, :vk, :telegram, :instagram)");
+		
+		// Bind parameters
+		$stmt->bindParam(':username', $user['username']);
+		$stmt->bindParam(':job_title', $user['job_title']);
+		$stmt->bindParam(':status', $user['status']);
+		$stmt->bindParam(':image', $user['image']);
+		$stmt->bindParam(':phone', $user['phone']);
+		$stmt->bindParam(':address', $user['address']);
+		$stmt->bindParam(':email', $user['email']);
+		$stmt->bindParam(':vk', $user['vk']);
+		$stmt->bindParam(':telegram', $user['telegram']);
+		$stmt->bindParam(':instagram', $user['instagram']);
+		
+		// Execute the SQL statement
+		return $stmt->execute();
 	}
 	
 	function isUser($role): bool
@@ -48,7 +62,7 @@
 	
 	function is_logged_in()
 	{
-		if (isset($_SESSION['username'])) {
+		if (isset($_SESSION['user_id'])) {
 			return true;
 		}
 		return false;
@@ -65,4 +79,26 @@
 			return $_SESSION['user_data'];
 		}
 		return false;
+	}
+	
+	function compareUserIds($userId, $idfromSession)
+	{
+		// Проверка, что идентификатор из сессии и из базы данных существуют и совпадают
+		if ($userId['id'] == $idfromSession['id']) {
+			return true;
+		}
+		return false;
+	}
+	
+	//После много попытки начал по видео решение кода но без результатно
+	function login($email, $password)
+	{
+		$user =
+			[
+				'id' => '1',
+				'email' => 'mahmadullo.1111@gmail.com',
+				'role' => 'admin'
+			];
+		
+		$_SESSION['user'] = $user;
 	}
