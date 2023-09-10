@@ -10,11 +10,8 @@
 		exit();
 	}
 	
-	//Get Users from Database check.loc
-	$users = getUsers(connectToDatabase(), 'users');
 	//Get Email Users DB_users
-	$usersData = getUsers(connectToDatabaseUsers(), 'users');
-
+	$users = getUsers(connectToDatabaseUsers(), 'users');
 
 ?>
 
@@ -69,8 +66,8 @@
     </div>
     <div class="row">
         <div class="col-xl-12">
-					<?php var_dump($_SESSION['user_data']); ?>
-					<?php if (isAdmin(get_authenticatedUser())): ?>
+					<?php var_dump($_SESSION['user_id']); var_dump($_SESSION['user_data']); ?>
+					<?php if (isAdmin(get_authenticatedUserFromData())): ?>
               <a class="btn btn-success" href="create_user.html">Добавить</a>
 					<?php endif; ?>
             <div class="border-faded bg-faded p-3 mb-g d-flex mt-3">
@@ -104,12 +101,12 @@
                               <a href="javascript:void(0);" class="fs-xl text-truncate text-truncate-lg text-info"
                                  data-toggle="dropdown" aria-expanded="false">
 																<?php echo $user['username']; ?>
-																<?php if (isAdmin(get_authenticatedUser()) || compareUserIds($user, get_authenticatedUser())) : ?>
+																<?php if (isAdmin(get_authenticatedUserFromData()) || compareUserIds($user, get_authenticatedUserFromData())) : ?>
                                   <i class="fal fas fa-cog fa-fw d-inline-block ml-1 fs-md"></i>
                                   <i class="fal fa-angle-down d-inline-block ml-1 fs-md"></i>
                               </a>
 														<?php endif; ?>
-														<?php if (isAdmin(get_authenticatedUser()) || compareUserIds($user, get_authenticatedUser())) : ?>
+														<?php if (isAdmin(get_authenticatedUserFromData()) || compareUserIds($user, get_authenticatedUserFromData())) : ?>
 
                                 <div class="dropdown-menu">
 
