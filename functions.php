@@ -73,7 +73,7 @@
 		return !is_logged_in();
 	}
 	
-	function get_authenticatedUser()
+	function get_authenticatedUserFromData()
 	{
 		if (is_logged_in() && isset($_SESSION['user_data'])) {
 			return $_SESSION['user_data'];
@@ -83,8 +83,8 @@
 	
 	function compareUserIds($userId, $idfromSession)
 	{
-		// Проверка, что идентификатор из сессии и из базы данных существуют и совпадают
-		if ($userId['id'] == $idfromSession['id']) {
+		// Проверка, что идентификатор из сессии и из базы данных совпадают ли они
+		if ($userId['id'] == $idfromSession['user_id']) {
 			return true;
 		}
 		return false;
@@ -97,8 +97,6 @@
 			[
 				'id' => '1',
 				'email' => 'mahmadullo.1111@gmail.com',
-				'role' => 'admin'
 			];
-		
 		$_SESSION['user'] = $user;
 	}
