@@ -71,7 +71,7 @@
         <div class="col-xl-12">
 					<?php var_dump($_SESSION['user_data']); ?>
 					<?php if (isAdmin(get_authenticatedUser())): ?>
-              <a class="btn btn-success" href="create_user.html">Добавить</a>
+              <a class="btn btn-success" href="create_user.php">Добавить</a>
 					<?php endif; ?>
             <div class="border-faded bg-faded p-3 mb-g d-flex mt-3">
                 <input type="text" id="js-filter-contacts" name="filter-contacts"
@@ -169,7 +169,7 @@
           </div>
 			
 			<?php endforeach; ?>
-			<?php session_destroy(); ?>
+<!--			--><?php //session_destroy(); ?>
     </div>
 
 </main>
