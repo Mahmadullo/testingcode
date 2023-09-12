@@ -29,19 +29,14 @@
 	function addUser($conn, $table, $user)
 	{
 		// Prepare the SQL statement
-		$stmt = $conn->prepare("INSERT INTO `$table`(`username`, `job_title`, `status`, `image`, `phone`, `address`, `email`, `vk`, `telegram`, `instagram`) VALUES (:username, :job_title, :status, :image, :phone, :address, :email, :vk, :telegram, :instagram)");
+		$stmt = $conn->prepare("INSERT INTO `$table` (`username`, `job_title`, `status`, `phone`, `address`) VALUES (:username, :job_title, :status, :image, :phone, :address)");
 		
 		// Bind parameters
 		$stmt->bindParam(':username', $user['username']);
 		$stmt->bindParam(':job_title', $user['job_title']);
 		$stmt->bindParam(':status', $user['status']);
-		$stmt->bindParam(':image', $user['image']);
 		$stmt->bindParam(':phone', $user['phone']);
 		$stmt->bindParam(':address', $user['address']);
-		$stmt->bindParam(':email', $user['email']);
-		$stmt->bindParam(':vk', $user['vk']);
-		$stmt->bindParam(':telegram', $user['telegram']);
-		$stmt->bindParam(':instagram', $user['instagram']);
 		
 		// Execute the SQL statement
 		return $stmt->execute();
@@ -90,15 +85,24 @@
 		return false;
 	}
 	
-	//После много попытки начал по видео решение кода но без результатно
-	function login($email, $password)
+	function uploadImage()
 	{
-		$user =
-			[
-				'id' => '1',
-				'email' => 'mahmadullo.1111@gmail.com',
-				'role' => 'admin'
-			];
+		if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 		
-		$_SESSION['user'] = $user;
+		}
+	}
+	
+	function addSocialLinks()
+	{
+	
+	}
+	
+	function setStatus()
+	{
+	
+	}
+	
+	function addUserByEmail($email, $password)
+	{
+	
 	}
