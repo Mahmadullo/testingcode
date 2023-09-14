@@ -69,7 +69,6 @@
     </div>
     <div class="row">
         <div class="col-xl-12">
-					<?php var_dump($_SESSION['user_data']); ?>
 					<?php if (isAdmin(get_authenticatedUser())): ?>
               <a class="btn btn-success" href="create_user.php">Добавить</a>
 					<?php endif; ?>
@@ -169,7 +168,7 @@
           </div>
 			
 			<?php endforeach; ?>
-<!--			--><?php //session_destroy(); ?>
+        <!--			--><?php //session_destroy(); ?>
     </div>
 
 </main>
