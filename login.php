@@ -19,6 +19,9 @@
 //
 		if ($userData && password_verify($inputPasswordUser, $userData['password'])) {
 			// Успешная аутентификация, перенаправляем на страницу пользователей
+			$_SESSION['user_id'] = $userData['id'];
+			$_SESSION['user_data'] = $userData;
+			$_SESSION['user_role'] = $userData['role'];
 			header('Location: users.php');
 		} else {
 			// Неверные учетные данные, устанавливаем сообщение об ошибке и перенаправляем на страницу входа

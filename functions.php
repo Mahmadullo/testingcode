@@ -28,7 +28,81 @@
 	
 	function addUser($conn, $table, $user)
 	{
-		$stmt = $conn->prepare("INSERT INTO `users`(`email`) VALUES ('ss')");
-		$stmt->execute();
-		return $stmt->fetch(PDO::FETCH_ASSOC);
+		// Prepare the SQL statement
+		$stmt = $conn->prepare("INSERT INTO `$table` (`username`, `job_title`, `status`, `phone`, `address`) VALUES (:username, :job_title, :status, :image, :phone, :address)");
+		
+		// Bind parameters
+		$stmt->bindParam(':username', $user['username']);
+		$stmt->bindParam(':job_title', $user['job_title']);
+		$stmt->bindParam(':status', $user['status']);
+		$stmt->bindParam(':phone', $user['phone']);
+		$stmt->bindParam(':address', $user['address']);
+		
+		// Execute the SQL statement
+		return $stmt->execute();
+	}
+	
+	function isUser($role): bool
+	{
+		return $role === 'user';
+	}
+	
+	function isAdmin($user)
+	{
+		if (is_logged_in() && isset($user['role']) && $user['role'] === 'admin') {
+			return true;
+		}
+		return false;
+	}
+	
+	function is_logged_in()
+	{
+		if (isset($_SESSION['user_id'])) {
+			return true;
+		}
+		return false;
+	}
+	
+	function is_not_logged()
+	{
+		return !is_logged_in();
+	}
+	
+	function get_authenticatedUser()
+	{
+		if (is_logged_in() && isset($_SESSION['user_data'])) {
+			return $_SESSION['user_data'];
+		}
+		return false;
+	}
+	
+	function compareUserIds($userId, $idfromSession)
+	{
+		// Проверка, что идентификатор из сессии и из базы данных существуют и совпадают
+		if ($userId['id'] == $idfromSession['id']) {
+			return true;
+		}
+		return false;
+	}
+	
+	function uploadImage()
+	{
+		if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+		
+		}
+	}
+	
+	function addSocialLinks()
+	{
+	
+	}
+	
+	function setStatus()
+	{
+	
+	}
+	
+	function addUserByEmail($email, $password)
+	{
+	
 	}
