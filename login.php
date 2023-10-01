@@ -14,9 +14,8 @@
 		$dbConnection = connectToDatabase();
 		
 		// Получаем данные пользователя
-		$userData = getUserDataByEmail($dbConnection, $inputEmailUser);
-
-//
+		$userData = getUserDataByEmail($dbConnection, 'loginUser', $inputEmailUser);
+		
 		if ($userData && password_verify($inputPasswordUser, $userData['password'])) {
 			// Успешная аутентификация, перенаправляем на страницу пользователей
 			$_SESSION['user_id'] = $userData['id'];
