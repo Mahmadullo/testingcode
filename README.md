@@ -13,5 +13,4 @@
 
 
 Общая стукртура база данных для пользователей
-![Screenshot 2023-10-01 111012](https://github.com/Mahmadullo/testingcode/assets/60382076/7a70d40e-3c80-4541-aacd-0a0f3fe46a7a)
-DUMP
+![Screenshot 2023-10-01 113921](https://github.com/Mahmadullo/testingcode/assets/60382076/1d9a8f30-4172-4e3e-9a6d-a98d99246e97)
