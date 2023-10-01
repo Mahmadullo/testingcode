@@ -12,5 +12,6 @@
 ![image](https://github.com/Mahmadullo/testingcode/assets/60382076/93b4ea68-1648-4fbf-989b-be3ae0e9a9af)
 
 
-Стукртура база данных для пользователей
-![image](https://github.com/Mahmadullo/testingcode/assets/60382076/ce7588cb-105a-4ff4-803b-b50a87336b3a)
+Общая стукртура база данных для пользователей
+![Screenshot 2023-10-01 111012](https://github.com/Mahmadullo/testingcode/assets/60382076/7a70d40e-3c80-4541-aacd-0a0f3fe46a7a)
+DUMP
