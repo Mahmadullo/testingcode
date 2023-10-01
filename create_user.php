@@ -70,7 +70,7 @@
                             <!-- tel -->
                             <div class="form-group">
                                 <label class="form-label" for="simpleinput">Номер телефона</label>
-                                <input type="text" name="tel" id="simpleinput" class="form-control">
+                                <input type="text" name="phone" id="simpleinput" class="form-control">
                             </div>
 
                             <!-- address -->
@@ -115,7 +115,7 @@
 
                             <div class="form-group">
                                 <label class="form-label" for="example-fileinput">Загрузить аватар</label>
-                                <input type="file" id="example-fileinput" class="form-control-file">
+                                <input type="file" name="image" id="example-fileinput" class="form-control-file">
                             </div>
                         </div>
                     </div>

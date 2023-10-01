@@ -11,9 +11,9 @@
 		$stmt->execute();
 	}
 	
-	function getUserDataByEmail($conn, $email)
+	function getUserDataByEmail($conn, $table, $email)
 	{
-		$stmt = $conn->prepare("SELECT * FROM `users` WHERE email = :email");
+		$stmt = $conn->prepare("SELECT * FROM $table WHERE email = :email");
 		$stmt->bindParam(':email', $email, PDO::PARAM_STR);
 		$stmt->execute();
 		return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -28,19 +28,32 @@
 	
 	function addUser($conn, $table, $user)
 	{
-		// Prepare the SQL statement
-		$stmt = $conn->prepare("INSERT INTO `$table` (`username`, `job_title`, `status`, `phone`, `address`) VALUES (:username, :job_title, :status, :image, :phone, :address)");
-		
-		// Bind parameters
-		$stmt->bindParam(':username', $user['username']);
-		$stmt->bindParam(':job_title', $user['job_title']);
-		$stmt->bindParam(':status', $user['status']);
-		$stmt->bindParam(':phone', $user['phone']);
-		$stmt->bindParam(':address', $user['address']);
-		
-		// Execute the SQL statement
-		return $stmt->execute();
+		// File upload
+		$uploaded_file = $_FILES['image']['tmp_name'];
+		$destination_path = 'img/demo/avatars/' . $_FILES['image']['name'];
+		if (uploadImage($uploaded_file, $destination_path)) {
+			// Prepare the SQL statement
+			$stmt = $conn->prepare("INSERT INTO $table (`username`, `job_title`, `status`, `phone`, `address`, `email`, `image`, `vk`, `telegram`, `instagram`)
+            VALUES (:username, :job_title, :status, :phone, :address, :email, :image, :vk, :telegram, :instagram)");
+			
+			// Bind parameters
+			$stmt->bindParam(':username', $user['username']);
+			$stmt->bindParam(':job_title', $user['job_title']);
+			$stmt->bindParam(':status', $user['status']);
+			$stmt->bindParam(':phone', $user['phone']);
+			$stmt->bindParam(':address', $user['address']);
+			$stmt->bindParam(':email', $user['email']);
+			$stmt->bindParam(':image', $destination_path); // Save the image path in the database
+			$stmt->bindParam(':vk', $user['vk']);
+			$stmt->bindParam(':telegram', $user['telegram']);
+			$stmt->bindParam(':instagram', $user['instagram']);
+			// Execute the SQL statement
+			return $stmt->execute();
+		} else {
+			return false; // File upload failed
+		}
 	}
+	
 	
 	function isUser($role): bool
 	{
@@ -85,12 +98,42 @@
 		return false;
 	}
 	
-	function uploadImage()
+	function uploadImage($uploaded_file, $destination_directory)
 	{
-		if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+		// Get the original filename from the uploaded file
+		$original_filename = basename($uploaded_file); // Use basename() to get the filename
 		
+		// Generate a unique filename by adding a timestamp and a random string
+		$unique_filename = time() . '_' . uniqid() . '_' . $original_filename;
+		
+		// Combine the destination directory and the unique filename
+		$destination_path = $destination_directory . $unique_filename;
+		
+		if (move_uploaded_file($uploaded_file, $destination_path)) {
+			return $unique_filename; // Return the unique filename
+		} else {
+			return false; // Error when uploading the file
 		}
 	}
+	
+	$destination_directory = 'img/demo/avatars/';
+
+// Check if the 'image' file input exists in the form
+	if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+		$uploaded_file = $_FILES['image']['tmp_name'];
+		$unique_filename = uploadImage($uploaded_file, $destination_directory);
+		
+		if ($unique_filename) {
+			echo "File uploaded successfully!";
+		} else {
+			// Handle the case where the file upload failed
+			echo "Error uploading file.";
+		}
+	} else {
+		// Handle the case where the file input is missing or there was an error
+		echo "No file uploaded or an error occurred.";
+	}
+	
 	
 	function addSocialLinks()
 	{

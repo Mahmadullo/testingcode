@@ -10,10 +10,7 @@
 		exit();
 	}
 	
-	//Get Users from Database check.loc
-	//	$users = getUsers(connectToDatabase(), 'users');
-	//Get Email Users DB_users
-	$users = getUsers(connectToDatabaseUsers(), 'users');
+	$users = getUsers(connectToDatabase(), 'users');
 
 
 ?>
